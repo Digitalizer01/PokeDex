@@ -142,28 +142,32 @@ public class PokemonTypeRelationServiceTests {
 
 	@Test
 	public void testUpdatePokemonTypeRelationById() {
-		PokemonType existingPokemonType = new PokemonType("Fire");
-		PokemonType relatedPokemonType = new PokemonType("Water");
-		PokemonTypeRelation existingRelation = new PokemonTypeRelation(existingPokemonType, relatedPokemonType,
-				EffectivenessPercentageEnum.SUPER_EFFECTIVE.getValue());
+	    PokemonType existingPokemonType = new PokemonType("Fire");
+	    PokemonType relatedPokemonType = new PokemonType("Water");
+	    PokemonType newRelatedPokemonType = new PokemonType("Electric");
+	    PokemonTypeRelation existingRelation = new PokemonTypeRelation(existingPokemonType, relatedPokemonType,
+	            EffectivenessPercentageEnum.SUPER_EFFECTIVE.getValue());
 
-		when(pokemonTypeRelationRepository.findById(1)).thenReturn(Optional.of(existingRelation));
-		when(pokemonTypeService.getPokemonTypeByName("Electric")).thenReturn(relatedPokemonType);
+	    when(pokemonTypeRelationRepository.findById(1)).thenReturn(Optional.of(existingRelation));
+	    when(pokemonTypeService.getPokemonTypeByName("Fire")).thenReturn(existingPokemonType);
+	    when(pokemonTypeService.getPokemonTypeByName("Electric")).thenReturn(newRelatedPokemonType);
 
-		PokemonTypeRelationDTO newPokemonTypeRelationDTO = new PokemonTypeRelationDTO("Fire", "Electric", 150);
+	    PokemonTypeRelationDTO newPokemonTypeRelationDTO = new PokemonTypeRelationDTO("Fire", "Electric",
+	            EffectivenessPercentageEnum.NORMAL.getValue());
 
-		ResponseEntity<PokemonTypeRelation> response = pokemonTypeRelationService.updatePokemonTypeRelationById(1,
-				newPokemonTypeRelationDTO);
+	    ResponseEntity<PokemonTypeRelation> response = pokemonTypeRelationService.updatePokemonTypeRelationById(1,
+	            newPokemonTypeRelationDTO);
 
-		assertNotNull(response);
-		assertEquals(HttpStatus.OK, response.getStatusCode());
+	    assertNotNull(response);
+	    assertEquals(HttpStatus.OK, response.getStatusCode());
 
-		PokemonTypeRelation updatedPokemonTypeRelation = response.getBody();
-		assertNotNull(updatedPokemonTypeRelation);
-		assertEquals("Fire", updatedPokemonTypeRelation.getPokemonType().getName());
-		assertEquals("Electric", updatedPokemonTypeRelation.getRelatedPokemonType().getName());
-		assertEquals(150, updatedPokemonTypeRelation.getEffectivenessPercentage());
+	    PokemonTypeRelation updatedPokemonTypeRelation = response.getBody();
+	    assertNotNull(updatedPokemonTypeRelation);
+	    assertEquals("Fire", updatedPokemonTypeRelation.getPokemonType().getName());
+	    assertEquals("Electric", updatedPokemonTypeRelation.getRelatedPokemonType().getName());
+	    assertEquals(EffectivenessPercentageEnum.NORMAL.getValue(), updatedPokemonTypeRelation.getEffectivenessPercentage());
 	}
+
 
 	@Test
 	public void testUpdatePokemonTypeRelationById_NotFound() {
@@ -188,8 +192,7 @@ public class PokemonTypeRelationServiceTests {
 		ResponseEntity<PokemonTypeRelation> response = pokemonTypeRelationService.deletePokemonTypeRelationById(1);
 
 		assertNotNull(response);
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(pokemonTypeRelation, response.getBody());
+		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
 
 	@Test

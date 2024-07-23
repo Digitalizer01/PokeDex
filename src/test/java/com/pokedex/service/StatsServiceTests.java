@@ -120,8 +120,7 @@ public class StatsServiceTests {
 		ResponseEntity<Stats> response = statsService.deleteStats(1);
 
 		assertNotNull(response);
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(stats, response.getBody());
+		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
 
 	@Test

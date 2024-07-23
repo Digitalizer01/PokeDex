@@ -110,7 +110,7 @@ public class GenerationServiceTests {
 
 		when(generationRepository.findGenerationByYear(1996)).thenReturn(generation);
 
-		Generation foundGeneration = generationService.getGenerationsByYear(1996);
+		Generation foundGeneration = generationService.getGenerationByYear(1996);
 
 		assertNotNull(foundGeneration);
 		assertEquals(1996, foundGeneration.getYear());
@@ -157,8 +157,7 @@ public class GenerationServiceTests {
 		ResponseEntity<Generation> response = generationService.deleteGeneration(1);
 
 		assertNotNull(response);
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(generation, response.getBody());
+		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 
 		verify(generationRepository, times(1)).deleteById(1);
 	}

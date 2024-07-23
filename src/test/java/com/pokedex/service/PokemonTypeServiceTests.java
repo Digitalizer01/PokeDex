@@ -176,8 +176,7 @@ public class PokemonTypeServiceTests {
 		ResponseEntity<PokemonType> response = pokemonTypeService.deletePokemonTypeById(1);
 
 		assertNotNull(response);
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(pokemonType, response.getBody());
+		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
 
 	@Test
