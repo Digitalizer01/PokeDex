@@ -68,7 +68,7 @@ public class PokemonServiceImpl implements PokemonService {
 
 	@Override
 	public Pokemon getPokemonByIdPokedex(int idpokedex) {
-		return pokemonRepository.findById(idpokedex)
+		return pokemonRepository.findByIdPokedex(idpokedex)
 				.orElseThrow(() -> new ResourceNotFoundException("Pokemon not found. IdPokedex: " + idpokedex));
 	}
 
@@ -172,6 +172,21 @@ public class PokemonServiceImpl implements PokemonService {
 	@Override
 	public Generation getGenerationByName(String name) {
 		return getPokemonByName(name).getGeneration();
+	}
+
+	@Override
+	public Boolean isLegendaryById(int id) {
+		return getPokemonById(id).isLegendary();
+	}
+
+	@Override
+	public Boolean isLegendaryByIdPokedex(int idpokedex) {
+		return getPokemonByIdPokedex(idpokedex).isLegendary();
+	}
+
+	@Override
+	public Boolean isLegendaryByName(String name) {
+		return getPokemonByName(name).isLegendary();
 	}
 
 	@Override
@@ -420,27 +435,6 @@ public class PokemonServiceImpl implements PokemonService {
 		return ResponseEntity.ok(pokemon);
 	}
 
-	@Override
-	public ResponseEntity<Pokemon> deletePokemonById(int id) {
-		Pokemon pokemon = getPokemonById(id);
-		pokemonRepository.deleteById(id);
-		return ResponseEntity.ok(pokemon);
-	}
-
-	@Override
-	public ResponseEntity<Pokemon> deletePokemonByIdPokedex(int idpokedex) {
-		Pokemon pokemon = getPokemonByIdPokedex(idpokedex);
-		pokemonRepository.deleteByIdPokedex(idpokedex);
-		return ResponseEntity.ok(pokemon);
-	}
-
-	@Override
-	public ResponseEntity<Pokemon> deletePokemonByName(String name) {
-		Pokemon pokemon = getPokemonByName(name);
-		pokemonRepository.deleteByName(name);
-		return ResponseEntity.ok(pokemon);
-	}
-
 	private Pokemon updatePokemon(Pokemon pokemon, PokemonDTO newPokemonDTO) {
 		pokemon.setName(newPokemonDTO.getName());
 		pokemon.setPokemonType1(pokemonTypeService.getPokemonTypeByName(newPokemonDTO.getNamePokemonType1()));
@@ -477,6 +471,27 @@ public class PokemonServiceImpl implements PokemonService {
 		updater.accept(pokemon);
 		pokemonRepository.saveAndFlush(pokemon);
 		return ResponseEntity.ok(pokemon);
+	}
+
+	@Override
+	public ResponseEntity<Pokemon> deletePokemonById(int id) {
+		getPokemonById(id);
+		pokemonRepository.deleteById(id);
+		return ResponseEntity.noContent().build();
+	}
+
+	@Override
+	public ResponseEntity<Pokemon> deletePokemonByIdPokedex(int idpokedex) {
+		getPokemonByIdPokedex(idpokedex);
+		pokemonRepository.deleteByIdPokedex(idpokedex);
+		return ResponseEntity.noContent().build();
+	}
+
+	@Override
+	public ResponseEntity<Pokemon> deletePokemonByName(String name) {
+		getPokemonByName(name);
+		pokemonRepository.deleteByName(name);
+		return ResponseEntity.noContent().build();
 	}
 
 }

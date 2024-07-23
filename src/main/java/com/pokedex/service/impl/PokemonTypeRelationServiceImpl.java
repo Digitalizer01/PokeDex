@@ -83,9 +83,9 @@ public class PokemonTypeRelationServiceImpl implements PokemonTypeRelationServic
 
 	@Override
 	public ResponseEntity<PokemonTypeRelation> deletePokemonTypeRelationById(int id) {
-		PokemonTypeRelation pokemonTypeRelation = getPokemonTypeRelationById(id);
+		getPokemonTypeRelationById(id);
 		pokemonTypeRelationRepository.deleteById(id);
-		return ResponseEntity.ok(pokemonTypeRelation);
+		return ResponseEntity.noContent().build();
 	}
 
 }

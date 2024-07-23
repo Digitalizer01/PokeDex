@@ -3,8 +3,6 @@ package com.pokedex.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +43,7 @@ public class GenerationServiceImpl implements GenerationService {
 	}
 
 	@Override
-	public Generation getGenerationsByYear(int year) {
+	public Generation getGenerationByYear(int year) {
 		return generationRepository.findGenerationByYear(year);
 	}
 
@@ -66,9 +64,9 @@ public class GenerationServiceImpl implements GenerationService {
 
 	@Override
 	public ResponseEntity<Generation> deleteGeneration(int id) {
-		Generation generation = getGenerationById(id);
+		getGenerationById(id);
 		generationRepository.deleteById(id);
-		return ResponseEntity.ok(generation);
+		return ResponseEntity.noContent().build();
 	}
 
 }

@@ -113,9 +113,9 @@ public class StatsServiceImpl implements StatsService {
 
 	@Override
 	public ResponseEntity<Stats> deleteStats(int id) {
-		Stats stats = getStatsById(id);
+		getStatsById(id);
 		statsRepository.deleteById(id);
-		return ResponseEntity.ok(stats);
+		return ResponseEntity.noContent().build();
 	}
 
 	private ResponseEntity<Stats> updateStat(int id, Consumer<Stats> updater) {

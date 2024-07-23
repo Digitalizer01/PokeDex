@@ -69,9 +69,9 @@ public class PokemonTypeServiceImpl implements PokemonTypeService {
 
 	@Override
 	public ResponseEntity<PokemonType> deletePokemonTypeById(int id) {
-		PokemonType pokemonType = getPokemonTypeById(id);
+		getPokemonTypeById(id);
 		pokemonTypeRepository.deleteById(id);
-		return ResponseEntity.ok(pokemonType);
+		return ResponseEntity.noContent().build();
 	}
 
 }

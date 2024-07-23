@@ -19,7 +19,7 @@ public interface GenerationService {
 
 	List<String> getAllGenerationRegions();
 
-	Generation getGenerationsByYear(int year);
+	Generation getGenerationByYear(int year);
 
 	// Set
 

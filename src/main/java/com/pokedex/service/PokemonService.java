@@ -59,6 +59,12 @@ public interface PokemonService {
 
 	Generation getGenerationByName(String name);
 
+	Boolean isLegendaryById(int id);
+
+	Boolean isLegendaryByIdPokedex(int idpokedex);
+
+	Boolean isLegendaryByName(String name);
+
 	List<Pokemon> getAllPokemonByGeneration(int idgeneration);
 
 	List<Pokemon> getAllPokemonByGenerationNumber(int number);

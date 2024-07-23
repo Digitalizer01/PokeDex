@@ -11,6 +11,8 @@ import com.pokedex.model.Pokemon;
 @Repository
 public interface PokemonRepository extends JpaRepository<Pokemon, Integer> {
 
+	Optional<Pokemon> findByIdPokedex(int idpokedex);
+
 	Optional<Pokemon> findByName(String name);
 
 	List<Pokemon> findAllByPokemonType1Id(int idtype1);
@@ -38,5 +40,4 @@ public interface PokemonRepository extends JpaRepository<Pokemon, Integer> {
 	List<Pokemon> findAllByPokemonType2Name(String namePokemonType2);
 
 	List<Pokemon> findAllByPokemonType1NameAndPokemonType2Name(String namePokemonType1, String namePokemonType2);
-
 }

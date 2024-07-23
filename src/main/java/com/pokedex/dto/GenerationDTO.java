@@ -8,6 +8,10 @@ public class GenerationDTO {
 	private String region;
 	private int year;
 
+	public GenerationDTO() {
+
+	}
+
 	public GenerationDTO(int number, String region, int year) {
 		this.number = number;
 		this.region = region;
